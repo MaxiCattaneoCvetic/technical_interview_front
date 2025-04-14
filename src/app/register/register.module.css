@@ -1,0 +1,67 @@
+.registerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fafbfc; /* Sutil y moderno */
+}
+
+.registerForm {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px; /* Contenedor más ajustado */
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border: 1px solid #e0e0e0; /* Borde sutil */
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  border-color: #4CAF50; /* Respetamos el verde */
+  outline: none;
+}
+
+.button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4CAF50; /* Verde respetado */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #45a049; /* Sombra más oscura al pasar */
+}
+
+.qrContainer {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.qrImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px; /* Bordes redondeados para suavizar la imagen */
+}
