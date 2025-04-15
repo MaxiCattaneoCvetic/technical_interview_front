@@ -1,34 +1,44 @@
 'use client';
 
 import React, { useState, FormEvent } from 'react';
-import { useRouter } from 'next/navigation'; // Usamos Next.js router para redirigir
-import styles from './login.module.css'; // Asegúrate de tener el archivo de estilos
+import { useRouter } from 'next/navigation';
+import styles from './login.module.css';
+import { login } from '@/api/fetchs/user.fetch';
+import Swal from 'sweetalert2';
 
 const Login = () => {
-  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const router = useRouter(); // Usamos el router para redirigir
+  const router = useRouter();
+
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-
-
-    if (username === '1' && password === '1') {
-      router.push('/admin'); 
-    } else {
-      alert('Usuario o contraseña incorrectos');
+    try {
+      const response = await login(email, password);
+      if (response.data.access_token) {
+        Swal.fire({ title: 'Bienvenido', icon: 'success' });
+        localStorage.setItem('token', response.data.access_token);
+      } else {
+        throw new Error('Credenciales inválidas');
+      }
+      router.push('/admin');
+    } catch (error) {
+      Swal.fire({ title: 'Error', text: 'Usuario o contraseña incorrectos', icon: 'error' });
     }
   };
+
+
 
   return (
     <div className={styles.loginContainer}>
       <form onSubmit={handleSubmit} className={styles.loginForm}>
-        <h2 style={{textAlign: 'center'}}>Iniciar sesión</h2>
+        <h2 style={{ textAlign: 'center' }}>Iniciar sesión</h2>
         <input
-          type="text"
-          placeholder="Usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="email"
+          placeholder="Correo electrónico"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className={styles.input}
         />
         <input

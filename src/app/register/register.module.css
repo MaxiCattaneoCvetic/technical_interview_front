@@ -3,16 +3,20 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #fafbfc; /* Sutil y moderno */
+  background-color: #fafbfc; 
 }
 
 .registerForm {
+  display: flex;
+  flex-direction: column;
   background-color: white;
-  padding: 30px;
+  padding: 4rem;
   border-radius: 10px;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px; /* Contenedor más ajustado */
+  max-width: 400px;
+  align-content: center;
+  justify-content: center;
 }
 
 .label {
@@ -24,10 +28,10 @@
 }
 
 .input {
-  width: 100%;
-  padding: 12px;
+  width: 20rem;
+  padding: 1rem;
   margin: 12px 0;
-  border: 1px solid #e0e0e0; /* Borde sutil */
+  border: 1px solid #e0e0e0; 
   border-radius: 6px;
   font-size: 1rem;
   color: #333;
@@ -35,14 +39,15 @@
 }
 
 .input:focus {
-  border-color: #4CAF50; /* Respetamos el verde */
+  border-color: #4CAF50; 
   outline: none;
 }
 
 .button {
-  width: 100%;
-  padding: 12px;
-  background-color: #4CAF50; /* Verde respetado */
+  align-self: flex-start;
+  width: 22rem;
+  padding: 1rem;
+  background-color: #4CAF50; 
   color: white;
   border: none;
   border-radius: 6px;
@@ -52,7 +57,7 @@
 }
 
 .button:hover {
-  background-color: #45a049; /* Sombra más oscura al pasar */
+  background-color: #1c611f; 
 }
 
 .qrContainer {

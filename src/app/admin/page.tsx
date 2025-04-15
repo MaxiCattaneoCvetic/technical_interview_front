@@ -6,6 +6,7 @@ import { ClipLoader } from 'react-spinners';
 
 import styles from './admin.module.css';
 import "../../../src/app/global.css"
+import withAuth from '@/components/withAuth';
 
 const Admin = () => {
   const [qrCode, setQRCode] = useState<string | null>(null);
@@ -141,4 +142,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default withAuth(Admin);

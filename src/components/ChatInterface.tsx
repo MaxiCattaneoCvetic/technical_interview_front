@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './ChatInterface.module.css';
+import { isWhatsappAvailable } from '@/api/fetchs/whatsapp.fetch';
+import { processMessage } from '@/api/fetchs/ai.agent.fetch';
 
 interface Message {
   text: string;
@@ -12,7 +14,7 @@ const ChatInterface: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [whatsappStatus, setWhatsappStatus] = useState<'checking'|'available'|'unavailable'>('checking');
+  const [whatsappStatus, setWhatsappStatus] = useState<'checking' | 'available' | 'unavailable'>('checking');
   const [whatsappLink, setWhatsappLink] = useState('');
 
   const [clientId, setClientId] = useState<string>('');
@@ -37,11 +39,9 @@ const ChatInterface: React.FC = () => {
 
   const checkWhatsAppAvailability = async () => {
     try {
-      const response = await fetch('http://localhost:3001/whatsapp/bot-link');
-      const data = await response.json();
-      
-      if (data.success && data.link) {
-        setWhatsappLink(data.link);
+      const response = await isWhatsappAvailable();
+      if (response.success && response.link) {
+        setWhatsappLink(response.link);
         setWhatsappStatus('available');
       } else {
         setWhatsappStatus('unavailable');
@@ -71,16 +71,7 @@ const ChatInterface: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/ai/process-message', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: inputMessage,
-          clientId: clientId
-        }),
-      });
+      const response = await processMessage(inputMessage, clientId);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -118,19 +109,19 @@ const ChatInterface: React.FC = () => {
   const getWhatsAppButtonText = () => {
     switch (whatsappStatus) {
       case 'checking':
-        return 'Verificando disponibilidad...';
+        return 'Verificando disponibilidad del asistente...';
       case 'available':
-        return 'Contactar por WhatsApp';
+        return 'Contactar asistente por WhatsApp';
       case 'unavailable':
         return 'Asistente no disponible temporalmente';
       default:
-        return 'Contactar por WhatsApp';
+        return 'Contactar asistente por WhatsApp';
     }
   };
 
   return (
     <div className={styles.chatContainer}>
-      <div 
+      <div
         className={`${styles.warningBanner} ${whatsappStatus === 'available' ? styles.available : ''}`}
         onClick={handleWhatsAppClick}
       >
