@@ -7,6 +7,7 @@ import { ClipLoader } from 'react-spinners';
 import styles from './admin.module.css';
 import "../../../src/app/global.css"
 import withAuth from '@/components/withAuth';
+import UpdateDatabase from '@/components/updateDatabase';
 
 const Admin = () => {
   const [qrCode, setQRCode] = useState<string | null>(null);
@@ -91,13 +92,7 @@ const Admin = () => {
           >
             Ver asistente
           </button>
-          <button
-            onClick={handleCargarBaseDatos}
-            className={styles.button}
-            disabled={loading}
-          >
-            Cargar base de datos
-          </button>
+
           <button
             onClick={handleVincularWhatsapp}
             className={styles.button}
@@ -105,6 +100,7 @@ const Admin = () => {
           >
             {loading ? 'Generando QR...' : 'Vincular WhatsApp'}
           </button>
+          <UpdateDatabase />
         </div>
       </div>
 

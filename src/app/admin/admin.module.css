@@ -1,4 +1,3 @@
-
 .welcomeContainer {
   box-sizing: border-box;
   position: flex;
@@ -37,7 +36,7 @@
   cursor: pointer;
 }
 
-.button:hover {
+.button:hover { 
   background-color: #45a049;
 }
 
@@ -103,5 +102,40 @@
 
 .closeBtn:hover {
   background-color: #cc0000;
+}
+
+.uploadContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.uploadInfo {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+    text-align: center;
+}
+
+.button {
+    width: 100%;
+    height: 60px;
+    background-color: #4bff7d;
+    border: none;
+    color: #000;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background-color: #3ce66d;
+    transform: translateY(-1px);
+}
+
+.button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
