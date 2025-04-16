@@ -72,7 +72,7 @@ const ChatInterface: React.FC = () => {
 
     try {
       const response: any = await processMessage(inputMessage, clientId);
-      console.log(response);
+
       if (response.status != 201 || !response.data) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
