@@ -71,13 +71,13 @@ const ChatInterface: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await processMessage(inputMessage, clientId);
-
-      if (!response.ok) {
+      const response: any = await processMessage(inputMessage, clientId);
+      console.log(response);
+      if (response.status != 201 || !response.data) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const responseText = await response.text();
+      const responseText = response.data
 
       const aiMessage: Message = {
         text: responseText,
