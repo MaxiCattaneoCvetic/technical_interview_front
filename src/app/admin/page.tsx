@@ -7,7 +7,9 @@ import { ClipLoader } from 'react-spinners';
 import styles from './admin.module.css';
 import "../../../src/app/global.css"
 import withAuth from '@/components/withAuth';
-import UpdateDatabase from '@/components/updateDatabase';
+import { initDatabase } from '@/api/fetchs/update.database';
+import Swal from 'sweetalert2';
+
 
 const Admin = () => {
   const [qrCode, setQRCode] = useState<string | null>(null);
@@ -20,8 +22,14 @@ const Admin = () => {
     router.push('/ver-asistente');
   };
 
-  const handleCargarBaseDatos = () => {
-    router.push('/cargar-base-datos');
+  const handleInitDatabase = async () => {
+    await initDatabase()
+    Swal.fire({
+      title: 'Base de datos actualizada exitosamente',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+      confirmButtonColor: '#3085d6',
+    });
   };
 
   const handleVincularWhatsapp = async () => {
@@ -100,7 +108,13 @@ const Admin = () => {
           >
             {loading ? 'Generando QR...' : 'Vincular WhatsApp'}
           </button>
-          <UpdateDatabase />
+          <button
+            onClick={handleInitDatabase}
+            className={styles.button}
+            disabled={loading}
+          >
+            Iniciar base de datos
+          </button>
         </div>
       </div>
 
