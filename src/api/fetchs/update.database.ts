@@ -7,7 +7,7 @@ export const initDatabase = async () => {
     const token = localStorage.getItem('token');
     try {
 
-        const response = await axios.post(`${NEXT_PUBLIC_BACKEND_URL_DATABASE}/init/database`, {
+        const response = await axios.get(`${NEXT_PUBLIC_BACKEND_URL_DATABASE}/init/database`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
