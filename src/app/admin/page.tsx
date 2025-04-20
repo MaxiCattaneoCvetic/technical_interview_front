@@ -37,17 +37,19 @@ const Admin = () => {
     setError(null);
 
     try {
-      // const token = getLocalStorageToken();
-      // if (!token) {
-      //   throw new Error('No se encontró el token de autenticación');
-      // }
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('No se encontró el token de autenticación');
+      }
+
+      const URL_BACKEND = process.env.NEXT_PUBLIC_BACKEND_URL;
 
       // 1. Hacer la petición directamente con fetch
-      const response = await fetch('http://localhost:3001/whatsapp/qrcode', {
+      const response = await fetch(`${URL_BACKEND}/whatsapp/qrcode`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`
         }
       });
 
