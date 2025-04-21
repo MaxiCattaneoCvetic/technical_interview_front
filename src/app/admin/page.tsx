@@ -19,7 +19,7 @@ const Admin = () => {
   const router = useRouter();
 
   const handleVerAsistente = () => {
-    router.push('/ver-asistente');
+    router.push('/');
   };
 
   const handleInitDatabase = async () => {
@@ -44,7 +44,6 @@ const Admin = () => {
 
       const URL_BACKEND = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-      // 1. Hacer la petición directamente con fetch
       const response = await fetch(`${URL_BACKEND}/whatsapp/qrcode`, {
         method: 'GET',
         headers: {
@@ -53,20 +52,23 @@ const Admin = () => {
         }
       });
 
-      // 2. Verificar si la respuesta es válida
+      if (response.status === 401) {
+        localStorage.removeItem('token');
+        router.push('/login');
+        return;
+      }
+
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(errorText || 'Error al obtener el QR');
       }
 
-      // 3. Parsear la respuesta como JSON
       const data = await response.json();
 
       if (!data.qrCode) {
         throw new Error('El código QR no fue generado correctamente');
       }
 
-      // 4. Mostrar el QR
       setQRCode(data.qrCode);
       setShowModal(true);
 
